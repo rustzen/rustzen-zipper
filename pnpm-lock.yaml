@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      install-artifact-from-github:
+        specifier: ^1.4.0
+        version: 1.4.0
+
+packages:
+
+  install-artifact-from-github@1.4.0:
+    resolution: {integrity: sha512-+y6WywKZREw5rq7U2jvr2nmZpT7cbWbQQ0N/qfcseYnzHFz2cZz1Et52oY+XttYuYeTkI8Y+R2JNWj68MpQFSg==}
+    hasBin: true
+
+snapshots:
+
+  install-artifact-from-github@1.4.0: {}
