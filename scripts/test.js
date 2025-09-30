@@ -5,6 +5,7 @@ const path = require("path");
 try {
   const binaryPath = path.resolve(
     __dirname,
+    "..",
     "target",
     "debug",
     "rustzen-zipper"

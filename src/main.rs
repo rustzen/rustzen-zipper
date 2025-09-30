@@ -5,7 +5,7 @@ use walkdir::WalkDir;
 use zip::write::SimpleFileOptions;
 
 #[derive(Parser, Debug)]
-#[command(name = "rustzen-zipper")]
+#[command(name = "@rustzen/zipper")]
 #[command(about = "A Rust-based CLI tool for zipping dist folders")]
 #[command(version)]
 struct Args {

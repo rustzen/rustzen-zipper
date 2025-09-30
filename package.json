@@ -1,16 +1,15 @@
 {
   "name": "@rustzen/zipper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rust-based CLI & JS library for zipping dist folders",
   "main": "index.js",
   "bin": {
-    "zipper": "scripts/index.js"
+    "zipper": "index.js"
   },
   "files": [
-    "scripts/index.js",
-    "scripts/install.js",
-    "bin",
-    "README.md"
+    "index.js",
+    "README.md",
+    "scripts/install.js"
   ],
   "scripts": {
     "install": "node scripts/install.js",
