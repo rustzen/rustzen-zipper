@@ -1,6 +1,22 @@
 # @rustzen/zipper
 
-一个基于 Rust 的高性能 CLI 工具，用于快速压缩 dist 文件夹。
+[![npm version](https://img.shields.io/npm/v/@rustzen/zipper.svg)](https://www.npmjs.com/package/@rustzen/zipper)
+[![npm downloads](https://img.shields.io/npm/dm/@rustzen/zipper.svg)](https://www.npmjs.com/package/@rustzen/zipper)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
+> 一个基于 Rust 的高性能 CLI 工具，用于快速压缩 dist 文件夹。
+
+## 📋 目录
+
+- [特性](#-特性)
+- [安装](#-安装)
+- [快速开始](#-快速开始)
+- [详细用法](#-详细用法)
+- [时间格式说明](#-时间格式说明)
+- [高级用法](#-高级用法)
+- [故障排除](#️-故障排除)
+- [帮助信息](#-帮助信息)
+- [许可证](#-许可证)
 
 ## ✨ 特性
 
@@ -21,9 +37,14 @@ npm install -g @rustzen/zipper
 ### 项目依赖
 
 ```bash
+# npm
 npm install -D @rustzen/zipper
-# 或
+
+# pnpm
 pnpm add -D @rustzen/zipper
+
+# yarn
+yarn add -D @rustzen/zipper
 ```
 
 ## 🚀 快速开始
@@ -43,8 +64,7 @@ zipper
 {
   "scripts": {
     "build": "vite build",
-    "postbuild": "zipper",
-    "deploy": "npm run build && zipper -f=%Y%m%d"
+    "postbuild": "zipper"
   }
 }
 ```
@@ -75,11 +95,11 @@ zipper --source ./public
 #### 2. 自定义输出文件名
 
 ```bash
-# 输出为 myapp-20240928-1430.zip
 zipper -o myapp
+# 输出为 myapp-20240928-1430.zip
 
-# 输出为 deploy-20240928-1430.zip
 zipper --output deploy
+# 输出为 deploy-20240928-1430.zip
 ```
 
 #### 3. 自定义时间格式
@@ -92,10 +112,6 @@ zipper -f "%Y%m%d%H%M"
 # 带分隔符
 zipper -f "%Y-%m-%d_%H-%M"
 # 输出：dist-2024-09-28_14-30.zip
-
-# 简单日期
-zipper -f "%d%m%Y"
-# 输出：dist-28092024.zip
 ```
 
 #### 4. 压缩方法
@@ -188,7 +204,7 @@ zipper -f "deploy_%Y%m%d_%H%M"
 echo "Package created successfully!"
 ```
 
-## 📋 输出文件
+### 📋 输出文件
 
 - **默认命名**：`{output}-{timestamp}.zip`
 - **位置**：当前工作目录
@@ -242,10 +258,6 @@ zipper -h
 zipper --version
 zipper -V
 ```
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
 
 ## 📄 许可证
 
