@@ -14,15 +14,17 @@ struct Args {
     source: String,
 
     /// Output zip file name (without extension)
-    #[arg(short, long, default_value = "dist")]
-    output: String,
+    /// If not specified, will use the source directory name
+    #[arg(short, long)]
+    output: Option<String>,
 
     /// Time format for timestamp
     #[arg(short, long, default_value = "%Y%m%d-%H%M")]
     format: String,
 
     /// Compression method
-    #[arg(short, long, default_value = "stored")]
+    /// Type: String (stored|deflated)
+    #[arg(short, long, default_value = "deflated")]
     compression: String,
 }
 
@@ -39,7 +41,16 @@ fn run(args: Args) -> zip::result::ZipResult<()> {
 
     // 生成时间戳
     let timestamp = Local::now().format(&args.format).to_string();
-    let zip_name = format!("{}-{}.zip", args.output, timestamp);
+
+    // 自动从 source 路径提取目录名作为默认输出名
+    let output_name = args.output.unwrap_or_else(|| {
+        std::path::Path::new(&args.source)
+            .file_name()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .to_string()
+    });
+    let zip_name = format!("{}-{}.zip", output_name, timestamp);
 
     // 创建 zip 写入器
     let file = File::create(&zip_name)?;
@@ -60,7 +71,7 @@ fn run(args: Args) -> zip::result::ZipResult<()> {
         .compression_method(compression_method)
         .unix_permissions(0o755);
 
-    // 遍历 dist，并显式写入“目录项”，从而保留空目录结构
+    // 遍历 dist，并显式写入“目录项”
     for entry in WalkDir::new(&args.source)
         .into_iter()
         .filter_map(Result::ok)
@@ -76,8 +87,18 @@ fn run(args: Args) -> zip::result::ZipResult<()> {
             continue;
         }
 
-        // ZIP 规范更偏好正斜杠；同时对非 UTF-8 路径做安全降级
-        let name = rel.to_string_lossy().replace('\\', "/");
+        // 构建包含 dist 目录的完整路径
+        let name = if rel.as_os_str().is_empty() {
+            // 如果是 dist 目录本身，直接使用 "dist"
+            args.source.to_string()
+        } else {
+            // 其他文件和目录，添加 "dist/" 前缀
+            format!(
+                "{}/{}",
+                args.source,
+                rel.to_string_lossy().replace('\\', "/")
+            )
+        };
 
         if path.is_dir() {
             // 显式添加目录项，保证某些解压工具能恢复空目录
