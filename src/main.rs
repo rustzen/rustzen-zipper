@@ -71,6 +71,14 @@ fn run(args: Args) -> zip::result::ZipResult<()> {
         .compression_method(compression_method)
         .unix_permissions(0o755);
 
+    // zip 内部路径前缀：去掉开头的 "./"（或 ".\"），避免生成 "./dist/..." 这样的条目名
+    let mut zip_prefix = args.source.replace('\\', "/");
+    zip_prefix = zip_prefix.trim_start_matches("./").to_string();
+    if zip_prefix == "." {
+        zip_prefix.clear();
+    }
+    zip_prefix = zip_prefix.trim_end_matches('/').to_string();
+
     // 遍历 dist，并显式写入“目录项”
     for entry in WalkDir::new(&args.source)
         .into_iter()
@@ -87,22 +95,18 @@ fn run(args: Args) -> zip::result::ZipResult<()> {
             continue;
         }
 
-        // 构建包含 dist 目录的完整路径
-        let name = if rel.as_os_str().is_empty() {
-            // 如果是 dist 目录本身，直接使用 "dist"
-            args.source.to_string()
+        // 构建 zip 内部路径：使用“去掉 ./ 的前缀” + 相对路径
+        let rel_str = rel.to_string_lossy().replace('\\', "/");
+        let name = if zip_prefix.is_empty() {
+            rel_str.to_string()
         } else {
-            // 其他文件和目录，添加 "dist/" 前缀
-            format!(
-                "{}/{}",
-                args.source,
-                rel.to_string_lossy().replace('\\', "/")
-            )
+            format!("{}/{}", zip_prefix, rel_str)
         };
 
         if path.is_dir() {
             // 显式添加目录项，保证某些解压工具能恢复空目录
-            zip.add_directory(&name, dir_opts)?;
+            let dir_name = format!("{}/", name.trim_end_matches('/'));
+            zip.add_directory(&dir_name, dir_opts)?;
         } else if path.is_file() {
             // 添加文件内容
             zip.start_file(&name, file_opts)?;
