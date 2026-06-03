@@ -12,7 +12,7 @@ use zip::read::ZipArchive;
 use zip::write::SimpleFileOptions;
 
 #[derive(Parser, Debug)]
-#[command(name = "@rustzen/zipper")]
+#[command(name = "rz-zip", bin_name = "rz-zip")]
 #[command(about = "A Rust-based CLI tool for zipping dist folders")]
 #[command(version)]
 struct Cli {
@@ -118,7 +118,7 @@ struct PackOptions {
     #[arg(long = "no-verbose", action = ArgAction::SetTrue)]
     no_verbose: bool,
 
-    /// Load options from config file (`.rzrc`, `.rzrc.json`, or `package.json` `zipper` field).
+    /// Load options from config file (`.rzrc`, `.rzrc.json`, or `package.json` `rz-zip` field).
     #[arg(long = "config")]
     config_path: Option<String>,
 }
@@ -634,7 +634,7 @@ fn read_pack_config_file(path: &Path) -> Result<Option<PackConfig>, Box<dyn std:
 }
 
 fn extract_packagejson_pack_config(value: &Value) -> Option<Value> {
-    value.get("zipper").cloned()
+    value.get("rz-zip").cloned()
 }
 
 fn parse_pack_config(value: &Value) -> Result<PackConfig, Box<dyn std::error::Error>> {

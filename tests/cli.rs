@@ -47,7 +47,7 @@ fn run_cli_in_dir(args: &[&str], cwd: &Path) -> std::process::Output {
         .args(args)
         .current_dir(cwd)
         .output()
-        .expect("run zipper binary")
+        .expect("run rz-zip binary")
 }
 
 fn run_cli(args: &[&str]) -> std::process::Output {
@@ -808,7 +808,7 @@ fn config_dry_run_true_can_be_forced_to_pack_in_cli() {
 }
 
 #[test]
-fn package_json_top_level_zipper_field_is_merged_into_pack_options() {
+fn package_json_top_level_rz_zip_field_is_merged_into_pack_options() {
     let workspace = TempWorkspace::new("rustzen_zipper_package_json_config");
     let source = workspace.as_path().join("project");
     write_file(&source, "keep.txt", "keep");
@@ -818,7 +818,7 @@ fn package_json_top_level_zipper_field_is_merged_into_pack_options() {
     let mut file = File::create(&package_json).unwrap();
     file.write_all(
         br#"{
-  "zipper": {
+  "rz-zip": {
     "source": "project",
     "output_dir": "configured",
     "excludes": ["*skip.log"],

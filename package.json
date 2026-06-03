@@ -4,7 +4,7 @@
   "description": "Rust-based CLI & JS library for zipping dist folders",
   "main": "index.js",
   "bin": {
-    "zipper": "index.js"
+    "rz-zip": "index.js"
   },
   "files": [
     "index.js",

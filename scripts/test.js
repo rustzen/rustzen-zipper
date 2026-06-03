@@ -12,6 +12,6 @@ try {
   );
   execFileSync(binaryPath, process.argv.slice(2), { stdio: "inherit" });
 } catch (err) {
-  console.error("Failed to execute zipper binary:", err);
+  console.error("Failed to execute rz-zip binary:", err);
   process.exit(1);
 }

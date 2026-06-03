@@ -29,14 +29,14 @@
 
 ## 🧭 命令入口（当前有效）
 
-发布后的包只提供 `zipper` 命令（由 `package.json` 的 `bin` 配置定义）。
+发布后的包只提供 `rz-zip` 命令（由 `package.json` 的 `bin` 配置定义）。
 
-- `zipper`：默认打包命令，直接执行 `zipper [选项]`。
-- `zipper unpack`：解压命令（需提供 `--source`）。
+- `rz-zip`：默认打包命令，直接执行 `rz-zip [选项]`。
+- `rz-zip unpack`：解压命令（需提供 `--source`）。
 
 ## 配置来源
 
-支持从 `.rzrc` / `.rzrc.json` / `package.json` 的 `zipper` 节点自动加载默认配置。
+支持从 `.rzrc` / `.rzrc.json` / `package.json` 的 `rz-zip` 节点自动加载默认配置。
 
 优先级：
 
@@ -65,11 +65,11 @@
 }
 ```
 
-支持通过 `--config .rzrc` 显式指定，或在 `package.json` 使用顶层 `zipper` 字段。
+支持通过 `--config .rzrc` 显式指定，或在 `package.json` 使用顶层 `rz-zip` 字段。
 
 ```json
 {
-  "zipper": {
+  "rz-zip": {
     "source": "./dist",
     "output_dir": "./artifacts",
     "format": "%Y%m%d-%H%M%S",
@@ -109,7 +109,7 @@ yarn add -D @rustzen/zipper
 
 ```bash
 # 压缩当前目录下的 dist 文件夹
-zipper
+rz-zip
 
 # 输出：dist-20240928-1430.zip
 ```
@@ -120,7 +120,7 @@ zipper
 {
   "scripts": {
     "build": "vite build",
-    "postbuild": "zipper"
+    "postbuild": "rz-zip"
   }
 }
 ```
@@ -160,19 +160,19 @@ zipper
 
 ```bash
 # 压缩 build 目录
-zipper -s ./build
+rz-zip -s ./build
 
 # 压缩 public 目录
-zipper --source ./public
+rz-zip --source ./public
 ```
 
 #### 2. 自定义输出文件名
 
 ```bash
-zipper -o myapp
+rz-zip -o myapp
 # 输出为 myapp-20240928-1430.zip
 
-zipper --output deploy
+rz-zip --output deploy
 # 输出为 deploy-20240928-1430.zip
 ```
 
@@ -180,11 +180,11 @@ zipper --output deploy
 
 ```bash
 # 年月日时分
-zipper -f "%Y%m%d%H%M"
+rz-zip -f "%Y%m%d%H%M"
 # 输出：dist-202409281430.zip
 
 # 带分隔符
-zipper -f "%Y-%m-%d_%H-%M"
+rz-zip -f "%Y-%m-%d_%H-%M"
 # 输出：dist-2024-09-28_14-30.zip
 ```
 
@@ -192,52 +192,52 @@ zipper -f "%Y-%m-%d_%H-%M"
 
 ```bash
 # 无压缩
-zipper -c stored
+rz-zip -c stored
 
 # 标准压缩
-zipper -c deflated
+rz-zip -c deflated
 ```
 
 #### 5. 组合使用
 
 ```bash
 # 完整示例
-zipper -s ./build -o deploy -f "%Y%m%d" -c deflated -l 9 --no-prefix
+rz-zip -s ./build -o deploy -f "%Y%m%d" -c deflated -l 9 --no-prefix
 # 输出：deploy-20240928.zip
 ```
 
 #### 6. 排除指定路径
 
 ```bash
-zipper -s ./dist -x node_modules -x .git
-zipper -s ./dist -o release -x ".map" -x "tmp/"
+rz-zip -s ./dist -x node_modules -x .git
+rz-zip -s ./dist -o release -x ".map" -x "tmp/"
 ```
 
 #### 7. 指定输出目录
 
 ```bash
-zipper -s ./dist -d ./artifacts
-zipper -s ./dist -o release -d ./output
+rz-zip -s ./dist -d ./artifacts
+rz-zip -s ./dist -o release -d ./output
 ```
 
 #### 8. 使用统一配置文件
 
 ```bash
-zipper --config .rzrc -q
-zipper -s ./dist --config .rzrc
+rz-zip --config .rzrc -q
+rz-zip -s ./dist --config .rzrc
 ```
 
 #### 9. 使用自定义根目录与前缀裁剪
 
 ```bash
-zipper -s ./dist --base-dir release
-zipper -s ./dist --strip-prefix "build/dist" --no-prefix
+rz-zip -s ./dist --base-dir release
+rz-zip -s ./dist --strip-prefix "build/dist" --no-prefix
 ```
 
 #### 10. 生成校验和
 
 ```bash
-zipper -s ./dist -o app --sha256
+rz-zip -s ./dist -o app --sha256
 ```
 
 会额外生成：
@@ -277,19 +277,19 @@ app-20260603-1200.zip.sha256
 
 ```bash
 # 年月日时分
-zipper -f "%Y%m%d%H%M"
+rz-zip -f "%Y%m%d%H%M"
 # 输出：dist-202409281430.zip
 
 # 年月日时分秒
-zipper -f "%Y%m%d%H%M%S"
+rz-zip -f "%Y%m%d%H%M%S"
 # 输出：dist-20240928143045.zip
 
 # 带分隔符
-zipper -f "%Y-%m-%d_%H-%M"
+rz-zip -f "%Y-%m-%d_%H-%M"
 # 输出：dist-2024-09-28_14-30.zip
 
 # 简单日期
-zipper -f "%d%m%Y"
+rz-zip -f "%d%m%Y"
 # 输出：dist-28092024.zip
 ```
 
@@ -302,7 +302,7 @@ zipper -f "%d%m%Y"
 - name: Build and zip
   run: |
     npm run build
-    zipper -f "build_%Y%m%d_%H%M"
+    rz-zip -f "build_%Y%m%d_%H%M"
 ```
 
 ### 多环境部署
@@ -312,8 +312,8 @@ zipper -f "%d%m%Y"
   "scripts": {
     "build:dev": "vite build --mode development",
     "build:prod": "vite build --mode production",
-    "zip:dev": "zipper -s ./dist -o dev -f dev_%Y%m%d",
-    "zip:prod": "zipper -s ./dist -o prod -f prod_%Y%m%d"
+    "zip:dev": "rz-zip -s ./dist -o dev -f dev_%Y%m%d",
+    "zip:prod": "rz-zip -s ./dist -o prod -f prod_%Y%m%d"
   }
 }
 ```
@@ -327,7 +327,7 @@ echo "Building project..."
 npm run build
 
 echo "Creating deployment package..."
-zipper -f "deploy_%Y%m%d_%H%M"
+rz-zip -f "deploy_%Y%m%d_%H%M"
 
 echo "Package created successfully!"
 ```
@@ -355,28 +355,28 @@ npm install -g @rustzen/zipper
 # 检查目录
 ls -la ./dist
 # 或指定正确的路径
-zipper -s ./正确的目录路径
+rz-zip -s ./正确的目录路径
 ```
 
 ### 压缩方法不支持
 
 ```bash
 # 检查支持的压缩方法
-zipper --help
+rz-zip --help
 # 使用默认的 deflated 方法
-zipper -c stored
+rz-zip -c stored
 ```
 
 ## 📚 帮助信息
 
 ```bash
 # 显示帮助
-zipper --help
-zipper -h
+rz-zip --help
+rz-zip -h
 
 # 显示版本
-zipper --version
-zipper -V
+rz-zip --version
+rz-zip -V
 ```
 
 ## 📄 许可证
