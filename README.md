@@ -27,15 +27,23 @@
 - ⚙️ **高度可配置**：支持自定义时间格式、源目录、压缩方法
 - 🔧 **npm 集成**：完美集成到 npm 工作流
 
+## 🧭 命令入口（当前有效）
+
+发布后的包只提供 `zipper` 命令（由 `package.json` 的 `bin` 配置定义）。
+
+- `zipper`：默认打包命令，直接执行 `zipper [选项]`。
+- `zipper unpack`：解压命令（需提供 `--source`）。
+
 ## 配置来源
 
 支持从 `.rzrc` / `.rzrc.json` / `package.json` 的 `zipper` 节点自动加载默认配置。
 
 优先级：
 
-1. `--config` 显式指定的路径（如 `--config .rzrc`）
-2. 工作区内的 `.rzrc` / `.rzrc.json` / `package.json`
-3. CLI 参数默认值
+1. CLI 显式参数（执行时传入）
+2. `--config` 显式指定的路径（如 `--config .rzrc`）
+3. 工作区内的 `.rzrc` / `.rzrc.json` / `package.json`
+4. CLI 默认值
 
 ```bash
 # .rzrc
@@ -339,14 +347,6 @@ echo "Package created successfully!"
 # 重新安装
 npm uninstall -g @rustzen/zipper
 npm install -g @rustzen/zipper
-```
-
-### 权限问题
-
-```bash
-# 检查文件权限
-ls -la bin/
-chmod +x bin/rustzen-zipper
 ```
 
 ### 源目录不存在
