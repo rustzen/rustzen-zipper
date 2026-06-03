@@ -11,6 +11,7 @@
 - [特性](#-特性)
 - [安装](#-安装)
 - [快速开始](#-快速开始)
+- [配置来源](#-配置来源)
 - [详细用法](#-详细用法)
 - [时间格式说明](#-时间格式说明)
 - [高级用法](#-高级用法)
@@ -25,6 +26,53 @@
 - 🎯 **简单易用**：一行命令即可压缩
 - ⚙️ **高度可配置**：支持自定义时间格式、源目录、压缩方法
 - 🔧 **npm 集成**：完美集成到 npm 工作流
+
+## 配置来源
+
+支持从 `.rzrc` / `.rzrc.json` / `package.json` 的 `zipper` 节点自动加载默认配置。
+
+优先级：
+
+1. `--config` 显式指定的路径（如 `--config .rzrc`）
+2. 工作区内的 `.rzrc` / `.rzrc.json` / `package.json`
+3. CLI 参数默认值
+
+```bash
+# .rzrc
+{
+  "source": "./dist",
+  "output_dir": "./artifacts",
+  "format": "%Y%m%d-%H%M%S",
+  "compression": "deflated",
+  "level": 9,
+  "excludes": [".git", "node_modules", "*.map"],
+  "base_dir": "dist",
+  "strip_prefix": "build/dist",
+  "sha256": true,
+  "no_prefix": false,
+  "overwrite": "overwrite",
+  "dry_run": false,
+  "quiet": false,
+  "verbose": false
+}
+```
+
+支持通过 `--config .rzrc` 显式指定，或在 `package.json` 使用顶层 `zipper` 字段。
+
+```json
+{
+  "zipper": {
+    "source": "./dist",
+    "output_dir": "./artifacts",
+    "format": "%Y%m%d-%H%M%S",
+    "compression": "deflated",
+    "level": 9,
+    "excludes": [".git", "node_modules", "*.map"],
+    "no_prefix": false,
+    "overwrite": "overwrite"
+  }
+}
+```
 
 ## 📦 安装
 
@@ -78,7 +126,25 @@ zipper
 | `-s` | `--source`      | 源目录路径                  | `./dist`      |
 | `-o` | `--output`      | 输出文件名（不含扩展名）    | 源文件名称    |
 | `-f` | `--format`      | 时间格式                    | `%Y%m%d-%H%M` |
-| `-c` | `--compression` | 压缩方法 `stored、deflated` | `deflated`    |
+| `-l` | `--level`       | 压缩级别 `0-9`（仅 deflated）| `6`         |
+| `-c` | `--compression` | 压缩方法 `stored`/`deflated` | `deflated`    |
+| `-d` | `--output-dir`  | 输出目录（自动创建）        | `.`           |
+| `-x` | `--exclude`     | 排除路径（glob，可重复）    | 无            |
+| `-i` | `--include`     | 白名单路径（glob，可重复）  | 无            |
+| `--config` |             | 配置文件路径（`--config .rzrc`） | none      |
+|      | `--prefix`      | 保留源目录名（覆盖配置文件 `no_prefix`） | false |
+|      | `--no-prefix`   | 不保留源目录名写入 zip      | false         |
+|      | `--base-dir`    | 覆盖压缩包根目录名          | 源目录名      |
+|      | `--strip-prefix`| 从条目路径移除前缀          | 无            |
+|      | `--sha256`      | 额外输出 `<name>.zip.sha256` | false         |
+|      | `--no-sha256`   | 不输出 `<name>.zip.sha256`   | false         |
+|      | `--overwrite`   | 覆盖策略：`overwrite` `skip` `error` | `overwrite` |
+|      | `--dry-run`     | 仅预览包含/排除内容，不创建压缩包 | false     |
+|      | `--no-dry-run`  | 强制创建压缩包（覆盖 `dry_run`） | false      |
+| `-q` | `--quiet`       | 只输出错误信息             | false         |
+|      | `--no-quiet`    | 允许正常输出               | false         |
+| `-v` | `--verbose`     | 详细日志                   | false         |
+|      | `--no-verbose`  | 关闭详细日志               | false         |
 
 ### 使用示例
 
@@ -117,7 +183,7 @@ zipper -f "%Y-%m-%d_%H-%M"
 #### 4. 压缩方法
 
 ```bash
-# 无压缩（默认，最快）
+# 无压缩
 zipper -c stored
 
 # 标准压缩
@@ -128,9 +194,63 @@ zipper -c deflated
 
 ```bash
 # 完整示例
-zipper -s ./build -o deploy -f "%Y%m%d" -c deflated
+zipper -s ./build -o deploy -f "%Y%m%d" -c deflated -l 9 --no-prefix
 # 输出：deploy-20240928.zip
 ```
+
+#### 6. 排除指定路径
+
+```bash
+zipper -s ./dist -x node_modules -x .git
+zipper -s ./dist -o release -x ".map" -x "tmp/"
+```
+
+#### 7. 指定输出目录
+
+```bash
+zipper -s ./dist -d ./artifacts
+zipper -s ./dist -o release -d ./output
+```
+
+#### 8. 使用统一配置文件
+
+```bash
+zipper --config .rzrc -q
+zipper -s ./dist --config .rzrc
+```
+
+#### 9. 使用自定义根目录与前缀裁剪
+
+```bash
+zipper -s ./dist --base-dir release
+zipper -s ./dist --strip-prefix "build/dist" --no-prefix
+```
+
+#### 10. 生成校验和
+
+```bash
+zipper -s ./dist -o app --sha256
+```
+
+会额外生成：
+
+```text
+app-20260603-1200.zip.sha256
+```
+
+### 参数说明补充
+
+- `-c/--compression` 现在会做参数校验，只允许 `stored` 或 `deflated`。
+- `-d/--output-dir` 用于指定压缩包目录，目录不存在会自动创建。
+- `-l/--level` 压缩级别支持 `0-9`；`stored` 模式会忽略该参数。
+- `-i/--include` 为白名单匹配规则（同样支持 glob）；若设置则只会打包命中项。
+- `--no-prefix` 关闭后不保留源目录名（压缩包内直接是相对路径）。
+- `--overwrite` 支持三种策略：`overwrite`（默认覆盖）、`skip`（文件存在时跳过）和 `error`（文件存在时报错退出）。
+- `--dry-run` 仅展示包含/排除预览并输出统计摘要，不会生成压缩包。
+- `-q/--quiet` 与 `-v/--verbose` 可用于减噪/排障。
+- `--base-dir` 直接替换 zip 根目录名，即使不带 `--no-prefix` 也会按该值写入。
+- `--strip-prefix` 在 `--include/--exclude` 匹配之后再应用，用于移除条目相对路径前缀。
+- `--sha256` 在打包完成后同时生成同目录 `<zip>.sha256`，内容格式为：`<sha256><空格><空格><zip文件名>`.
 
 ## 🕒 时间格式说明
 
@@ -243,7 +363,7 @@ zipper -s ./正确的目录路径
 ```bash
 # 检查支持的压缩方法
 zipper --help
-# 使用默认的 stored 方法
+# 使用默认的 deflated 方法
 zipper -c stored
 ```
 

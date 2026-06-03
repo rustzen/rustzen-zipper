@@ -14,9 +14,10 @@
   ],
   "scripts": {
     "install": "node scripts/install.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cargo test --locked",
     "build": "cargo build",
-    "postbuild": "node scripts/test.js -f=%Y%m%d%H%M%S"
+    "postbuild": "node scripts/test.js -f=%Y%m%d%H%M%S",
+    "ci": "cargo build --locked && cargo test --locked && cargo clippy --locked -- -D warnings"
   },
   "repository": {
     "type": "git",

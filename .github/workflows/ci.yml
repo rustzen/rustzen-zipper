@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build
+        run: cargo build --locked
+
+      - name: Test
+        run: cargo test --locked
+
+      - name: Clippy
+        run: cargo clippy --locked -- -D warnings
+
+      - name: CLI help documentation smoke check
+        run: |
+          cargo run -- --help > /tmp/rustzen-zipper-help.txt
+          for item in \
+                "--config" \
+                "--level" \
+                "--output-dir" \
+                "--include" \
+                "--base-dir" \
+                "--strip-prefix" \
+                "--sha256" \
+                "--no-sha256" \
+                "--no-prefix" \
+                "--prefix" \
+                "--overwrite" \
+                "--dry-run" \
+                "--no-dry-run" \
+                "--quiet" \
+                "--no-quiet" \
+                "--verbose" \
+                "--no-verbose" \
+                "--exclude"; do
+            if ! grep -q -- "$item" /tmp/rustzen-zipper-help.txt; then
+              echo "Missing help item: $item"
+              exit 1
+            fi
+          done
+
+      - name: Docs and help consistency check
+        run: |
+          for item in "--exclude" "--include" "--output-dir" "--level" "--base-dir" "--strip-prefix" "--sha256" "--no-sha256" "--no-prefix" "--prefix" "--overwrite" "--dry-run" "--no-dry-run" "--quiet" "--no-quiet" "--verbose" "--no-verbose"; do
+            if ! grep -q -- "$item" README.md; then
+              echo "README missing item: $item"
+              exit 1
+            fi
+          done
