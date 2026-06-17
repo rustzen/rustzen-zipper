@@ -9,19 +9,20 @@
   "files": [
     "index.js",
     "README.md",
-    "bin",
-    "scripts/install.js"
+    "scripts/install.js",
+    "scripts/verify-package.js"
   ],
   "scripts": {
     "install": "node scripts/install.js",
     "test": "cargo test --locked",
     "build": "cargo build",
     "postbuild": "node scripts/test.js -f=%Y%m%d%H%M%S",
-    "ci": "cargo build --locked && cargo test --locked && cargo clippy --locked -- -D warnings"
+    "verify:package": "node scripts/verify-package.js",
+    "ci": "cargo build --locked && cargo test --locked && cargo clippy --locked -- -D warnings && node scripts/verify-package.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idaibin/rustzen-zipper.git"
+    "url": "git+https://github.com/rustzen/rustzen-zipper.git"
   },
   "keywords": [
     "zip",
@@ -30,10 +31,10 @@
     "dist",
     "postbuild"
   ],
-  "author": "idaibin",
+  "author": "Rustzen Contributors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/idaibin/rustzen-zipper/issues"
+    "url": "https://github.com/rustzen/rustzen-zipper/issues"
   },
-  "homepage": "https://github.com/idaibin/rustzen-zipper#readme"
+  "homepage": "https://github.com/rustzen/rustzen-zipper#readme"
 }

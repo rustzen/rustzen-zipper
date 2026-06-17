@@ -84,6 +84,15 @@
 
 ## 📦 安装
 
+安装脚本会根据当前平台从 GitHub Release 下载 `rustzen-zipper-<target-triple>` 二进制，并放到包内的 `bin/rustzen-zipper`（Windows 为 `bin/rustzen-zipper.exe`）。支持的发布资产为：
+
+- `rustzen-zipper-aarch64-apple-darwin`
+- `rustzen-zipper-x86_64-apple-darwin`
+- `rustzen-zipper-x86_64-unknown-linux-gnu`
+- `rustzen-zipper-x86_64-pc-windows-msvc.exe`
+
+发布 npm 包前必须先创建相同版本号的 GitHub Release，并上传上述平台资产；`package.json` 与 `Cargo.toml` 的版本号必须一致。
+
 ### 全局安装
 
 ```bash
@@ -342,6 +351,8 @@ echo "Package created successfully!"
 ## 🛠️ 故障排除
 
 ### 二进制未找到
+
+安装阶段需要访问 GitHub Release。如果处在离线环境或企业网络限制下，请先确认能够访问 `https://github.com/rustzen/rustzen-zipper/releases`，并确认当前 npm 版本对应的 Release 资产已经上传。
 
 ```bash
 # 重新安装

@@ -3,12 +3,13 @@ const { execFileSync } = require("child_process");
 const path = require("path");
 
 try {
+  const binaryName = process.platform === "win32" ? "rustzen-zipper.exe" : "rustzen-zipper";
   const binaryPath = path.resolve(
     __dirname,
     "..",
     "target",
     "debug",
-    "rustzen-zipper"
+    binaryName
   );
   execFileSync(binaryPath, process.argv.slice(2), { stdio: "inherit" });
 } catch (err) {
