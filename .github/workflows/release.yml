@@ -1,14 +1,13 @@
 name: Release Rust Zipper CLI
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "Tag name (e.g. v0.1.0)"
-        required: true
   push:
     tags:
       - "v*.*.*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
