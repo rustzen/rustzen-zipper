@@ -4,7 +4,8 @@
 [![npm downloads](https://img.shields.io/npm/dm/@rustzen/zipper.svg)](https://www.npmjs.com/package/@rustzen/zipper)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-> 一个基于 Rust 的高性能 CLI 工具，用于快速压缩 dist 文件夹。
+> 一个基于 Rust 的发布打包工具，用于在脚本和发布流程中创建可重复的 zip
+> 归档。
 
 ## 📋 目录
 
@@ -18,12 +19,13 @@
 - [故障排除](#️-故障排除)
 - [帮助信息](#-帮助信息)
 - [许可证](#-许可证)
+- [版权与商业权益](#版权与商业权益)
 
 ## ✨ 特性
 
-- 🚀 **高性能**：基于 Rust 构建，压缩速度极快
+- 🚀 **发布友好**：基于 Rust 构建，适合自动化发布和归档流程
 - 📦 **跨平台**：支持 Windows、macOS、Linux
-- 🎯 **简单易用**：一行命令即可压缩
+- 🎯 **简单易用**：一行命令即可生成 zip 归档
 - ⚙️ **高度可配置**：支持自定义时间格式、源目录、压缩方法
 - 🔧 **npm 集成**：完美集成到 npm 工作流
 
@@ -117,7 +119,7 @@ yarn add -D @rustzen/zipper
 ### 基本用法
 
 ```bash
-# 压缩当前目录下的 dist 文件夹
+# 打包当前目录下的 dist 文件夹
 rz-zip
 
 # 输出：dist-20240928-1430.zip
@@ -392,7 +394,12 @@ rz-zip -V
 
 ## 📄 许可证
 
-MIT License
+MIT License. See [LICENSE](./LICENSE).
+
+## 版权与商业权益
+
+Ownership, branding, trademark, package publishing, and commercial-use
+boundaries are documented in [NOTICE.md](./NOTICE.md).
 
 ---
 

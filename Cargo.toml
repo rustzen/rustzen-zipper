@@ -2,8 +2,8 @@
 name = "rustzen-zipper"
 version = "0.2.0"
 edition = "2024"
-description = "Rust CLI tool for zipping dist folders"
-authors = ["Rustzen Contributors"]
+description = "Rust release packaging utility for repeatable zip archives"
+authors = ["Bruce Dai <bruce@idaibin.dev>", "Rustzen Contributors"]
 license = "MIT"
 repository = "https://github.com/rustzen/rustzen-zipper"
 homepage = "https://github.com/rustzen/rustzen-zipper#readme"
