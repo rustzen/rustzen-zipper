@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Rustzen Zipper",
+  "version": "0.1.0",
+  "identifier": "dev.idaibin.rustzen.zipper",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://127.0.0.1:1431",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Rustzen Zipper",
+        "titleBarStyle": "Overlay",
+        "trafficLightPosition": { "x": 16, "y": 24 },
+        "hiddenTitle": true,
+        "width": 960,
+        "height": 680,
+        "minWidth": 960,
+        "minHeight": 680,
+        "resizable": true,
+        "maximizable": true,
+        "center": true
+      }
+    ],
+    "macOSPrivateApi": false
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["dmg", "app"],
+    "createUpdaterArtifacts": true,
+    "category": "DeveloperTool",
+    "copyright": "Copyright (c) 2026 Rustzen Contributors",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png"
+    ],
+    "fileAssociations": [
+      {
+        "name": "ZIP Archive",
+        "ext": ["zip"],
+        "role": "Viewer",
+        "mimeType": "application/zip"
+      }
+    ],
+    "shortDescription": "Lightweight ZIP utility",
+    "longDescription": "Rustzen Zipper is a lightweight macOS archive utility powered by the Rust CLI core.",
+    "macOS": {
+      "minimumSystemVersion": "12.0"
+    }
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "dialog": false,
+      "endpoints": [
+        "https://cloud.rustzen.dev/api/updates/check?product=rustzen-zipper"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRDMDRGMUM5NTZCOEUyREMKUldUYzRyaFd5ZkVFVEU4TE9xYVB0WWJXbzJtZVVhaHpkYWZtaUNjZDd3TFpsYVZvQUJFdzdIU1gK"
+    }
+  }
+}

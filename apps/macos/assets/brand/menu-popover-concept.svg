@@ -1,0 +1,28 @@
+<svg width="980" height="720" viewBox="0 0 980 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="980" y2="720"><stop stop-color="#FFFFFF"/><stop offset="0.62" stop-color="#EEF4FE"/><stop offset="1" stop-color="#D3E7FD"/></linearGradient>
+    <filter id="shadow" x="180" y="84" width="620" height="578" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#77A8F7" flood-opacity="0.22"/></filter>
+  </defs>
+  <rect width="980" height="720" fill="url(#bg)"/>
+  <rect x="0" y="0" width="980" height="44" fill="rgba(255,255,255,.72)"/>
+  <g transform="translate(470 8)" color="#77A8F7"><path d="M7 8H29L7 30H29" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 26L25 14" stroke="currentColor" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/></g>
+  <rect x="210" y="92" width="560" height="540" rx="28" fill="rgba(255,255,255,.76)" stroke="#FFFFFF" stroke-width="2" filter="url(#shadow)"/>
+  <g transform="translate(260 132)"><rect width="96" height="96" rx="28" fill="#EEF4FE" stroke="#FFFFFF" stroke-width="2"/><path d="M27 31H69L27 67H69" stroke="#77A8F7" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M39 62L60 36" stroke="#60708A" stroke-opacity="0.34" stroke-width="5" stroke-linecap="round"/></g>
+  <text x="386" y="170" fill="#2F3E58" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif" font-size="34" font-weight="700">Rustzen Zipper</text>
+  <text x="386" y="210" fill="#60708A" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" font-size="22">ZIP-first archive utility</text>
+  <line x1="250" y1="260" x2="730" y2="260" stroke="#DDE6F4"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif" font-size="24" fill="#2F3E58">
+    <text x="300" y="316">Open Archive…</text><text x="674" y="316" fill="#60708A">⌘O</text>
+    <text x="300" y="382">Inspect Archive</text><text x="654" y="382" fill="#60708A">⇧⌘I</text>
+    <text x="300" y="448">Extract to…</text><text x="650" y="448" fill="#60708A">⇧⌘E</text>
+    <text x="300" y="514">Open Output Folder</text><text x="674" y="514" fill="#60708A">⌘R</text>
+    <text x="300" y="580">Check for Updates…</text>
+  </g>
+  <g stroke="#77A8F7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <rect x="250" y="296" width="26" height="20" rx="5"/><path d="M250 300H276"/>
+    <path d="M250 360H270V382H250Z"/><circle cx="272" cy="382" r="8"/>
+    <path d="M263 420V448M251 436L263 448L275 436"/><rect x="248" y="448" width="30" height="16" rx="5"/>
+    <rect x="250" y="494" width="26" height="20" rx="5"/><path d="M250 498H276"/>
+    <circle cx="263" cy="560" r="17"/><path d="M263 550V570M254 561L263 570L272 561"/>
+  </g>
+</svg>

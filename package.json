@@ -19,6 +19,8 @@
     "build": "cargo build",
     "postbuild": "node scripts/test.js -f=%Y%m%d%H%M%S",
     "verify:package": "node scripts/verify-package.js",
+    "desktop:dev": "cd apps/macos && bun run tauri dev",
+    "desktop:build": "cd apps/macos && bun run tauri build",
     "ci": "cargo build --locked && cargo test --locked && cargo clippy --locked -- -D warnings && node scripts/verify-package.js"
   },
   "repository": {

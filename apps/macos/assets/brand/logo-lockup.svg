@@ -1,0 +1,25 @@
+<svg width="1440" height="420" viewBox="0 0 1440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="panel" x1="80" y1="42" x2="342" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="0.58" stop-color="#EEF4FE"/>
+      <stop offset="1" stop-color="#D3E7FD"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="132" y1="90" x2="290" y2="324" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D3E7FD"/>
+      <stop offset="0.46" stop-color="#A8CBFB"/>
+      <stop offset="1" stop-color="#77A8F7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="420" rx="32" fill="#EEF4FE"/>
+  <rect x="64" y="52" width="316" height="316" rx="88" fill="url(#panel)" stroke="#FFFFFF" stroke-opacity="0.78" stroke-width="4"/>
+  <path d="M146 142H296L146 278H296" stroke="url(#blue)" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M182 252L264 164" stroke="#60708A" stroke-opacity="0.34" stroke-width="16" stroke-linecap="round"/>
+  <path d="M193 240L254 176" stroke="#FFFFFF" stroke-opacity="0.86" stroke-width="9" stroke-linecap="round" stroke-dasharray="6 10"/>
+  <circle cx="184" cy="256" r="17" fill="#EEF4FE" stroke="#77A8F7" stroke-width="8"/>
+  <path d="M184 274V304" stroke="#77A8F7" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="184" cy="320" r="14" fill="none" stroke="#77A8F7" stroke-width="10"/>
+  <text x="440" y="184" fill="#2F3E58" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', system-ui, sans-serif" font-size="96" font-weight="700">Rustzen</text>
+  <text x="440" y="286" fill="#77A8F7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', system-ui, sans-serif" font-size="96" font-weight="700">Zipper</text>
+  <text x="442" y="340" fill="#60708A" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', system-ui, sans-serif" font-size="28" font-weight="500">ZIP-first archive utility</text>
+</svg>
