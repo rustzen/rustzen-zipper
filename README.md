@@ -107,8 +107,8 @@ npm install -g @rustzen/zipper
 # npm
 npm install -D @rustzen/zipper
 
-# pnpm
-pnpm add -D @rustzen/zipper
+# npm
+npm install --save-dev @rustzen/zipper
 
 # yarn
 yarn add -D @rustzen/zipper

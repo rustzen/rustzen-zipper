@@ -41,11 +41,11 @@ cargo fmt --check
 cargo build --locked
 cargo test --locked
 cargo clippy --locked -- -D warnings
-pnpm test
-pnpm run ci
+npm test
+npm run ci
 ```
 
-`pnpm run ci` is the broadest local gate because it matches the package script.
+`npm run ci` is the broadest local gate because it matches the package script.
 
 ## Special Cases
 
